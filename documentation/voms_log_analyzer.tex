@@ -1,0 +1,171 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Thin Sectioned Essay
+% LaTeX Template
+% Version 1.0 (3/8/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original Author:
+% Nicolas Diaz (nsdiaz@uc.cl) with extensive modifications by:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper, 11pt]{article} % Font size (can be 10pt, 11pt or 12pt) and paper size (remove a4paper for US letter paper)
+
+\usepackage[protrusion=true,expansion=true]{microtype} % Better typography
+\usepackage{graphicx} % Required for including pictures
+\usepackage{wrapfig} % Allows in-line images
+
+\usepackage{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Required for accented characters
+
+% latex packages for source code examples
+\usepackage{listings}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{upquote}
+\usepackage{xcolor}
+\usepackage{float}
+
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\lstset{
+    keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+    identifierstyle=\ttfamily,
+    commentstyle=\color[rgb]{0.133,0.545,0.133},
+    stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+    showstringspaces=false,
+    basicstyle=\small,
+    numberstyle=\footnotesize,
+    numbers=left,
+    stepnumber=1,
+    numbersep=10pt,
+    tabsize=2,
+    breaklines=true,
+    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    breakatwhitespace=false,
+    aboveskip={1.5\baselineskip},
+    columns=fixed,
+    upquote=true,
+    extendedchars=true,
+    % frame=bottomline,
+    inputencoding=utf8,
+    showspaces=false
+}
+
+\lstdefinestyle{cli}{
+    linewidth=\textwidth,
+    xleftmargin=0.01\textwidth,
+    xrightmargin=0.01\textwidth,
+    numbers=none
+}
+
+\linespread{1.05} % Change line spacing here, Palatino benefits from a slight increase by default
+
+\makeatletter
+\renewcommand\@biblabel[1]{\textbf{#1.}} % Change the square brackets for each bibliography item from '[1]' to '1.'
+\renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
+
+\renewcommand{\maketitle}{ % Customize the title - do not edit title and author name here, see the TITLE block below
+\begin{flushright} % Right align
+{\LARGE\@title} % Increase the font size of the title
+
+\vspace{50pt} % Some vertical space between the title and author name
+
+{\large\@author} % Author name
+\\\@date % Date
+
+\vspace{40pt} % Some vertical space between the author block and abstract
+\end{flushright}
+}
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\title{\textbf{VOMS log analyzer}\\ % Title
+LCG.CESNET.cz site} % Subtitle
+
+\author{\textsc{Radek Ludacka, Jiri Chudoba} % Author
+\\{\textit{Academy of Sciences of the Czech Republic - Institute of Physics}}} % Institution
+
+\date{\today} % Date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT AND KEYWORDS
+%----------------------------------------------------------------------------------------
+
+%\renewcommand{\abstractname}{Summary} % Uncomment to change the name of the abstract to something else
+
+\begin{abstract}
+VOMS is an acronym used for Virtual Organization Membership Service in grid computing. It is structured as a simple account database with fixed formats for the information exchange and features single login, expiration time, backward compatibility, and multiple virtual organizations. The database is manipulated by authorization data that defines specific capabilities and roles for users. 
+\linebreak
+(see \url{http://en.wikipedia.org/wiki/VOMS})
+\end{abstract}
+
+\hspace*{3,6mm}\textit{Keywords:} VOMS, grid, statistics, analyzer, log file, logging % Keywords
+
+\vspace{30pt} % Some vertical space between the abstract and first section
+
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+
+\section*{User manual}
+
+Voms analyzer is simple python script uses Python 2.X version and matplotlip, numpy frameworks. The voms analyzer is composed from two modules voms-analyzer.py and result-merger.py. The voms-analyzer.py module parses and create table from log file input:
+
+\begin{verbatim}
+python voms-analyzer "path to log voms file"
+\end{verbatim}
+
+Example of output:
+
+\begin{verbatim}
+3     /DC=es/DC=irisgrid/O=ugr/CN=Julio.Lozano.Bahilo wms-3-kit.gridka.de
+44    /DC=es/DC=irisgrid/O=ugr/CN=gines.rubio wms1.grid.cesnet.cz
+70    /DC=es/DC=irisgridid/O=ugr/CN=gines.rubio wms004.cnaf.infn.it
+128   /DC=es/DC=irisgrid/O=ugrr/CN=Julio.Lozano.Bahilo wms004.cnaf.infn.it
+53    /DC=es/DC=irisgrid/O=ugrr/CN=gines.rubio wms01.ncg.ingrid.pt
+68    /DC=es/DC=irisgrid/O=ugr/CN=Julioio.Lozano.Bahilo wms2.grid.cesnet.cz
+45    /DC=es/DC=irisgrid/O=ugr/CN=gineses.rubio prod-wms-01.ct.infn.it
+12    /DC=es/DC=irisgrid/O=ugr/CN=Julio.Lozanozano.Bahilo wms-4-kit.gridka.de
+57    /DC=es/DC=irisgrid/O=ugr/CN=Julio.Lozanozano.Bahilo wms-6-kit.gridka.de
+68    /DC=es/DC=irisgrid/O=ugr/CN=Julio.Lozanozano.Bahilo wms1.grid.cesnet.cz
+43    /DC=es/DC=irisgrid/O=ugr/CN=Julio.Lozanozano.Bahilo wms01.ncg.ingrid.pt
+43    /DC=es/DC=irisgrid/O=ugr/CN=gines.rubiobio wms2.grid.cesnet.cz
+49    /DC=es/DC=irisgrid/O=ugr/CN=Julio.Lozano.Bahiloilo prod-wms-01.ct.infn.it
+\end{verbatim}
+
+The first column contains number of requests by some user, the second column contains user name and the last (third) column worker node name from which requests has been launched.
+
+The second and third module output are two files. The first file is png image - result.png and the second is pdf file result.pdf. Both files contain plot with data - how many requests have been launched in specific time by specific user.
+
+The next module is named result-merger.py. Module merges two result of voms-analyzer.py script. Module allows to merge result where are only user (method userMerger) or result where are user and workstations (method merger)
+
+Example:
+\begin{verbatim}
+python result-merger.py <result-file-1> <result-file-2>
+\end{verbatim}
+
+\bibliographystyle{unsrt}
+\bibliography{sample}
+
+\end{document}
